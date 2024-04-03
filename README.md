@@ -1,30 +1,56 @@
-# React + TypeScript + Vite
+# Tailwind Audio Player
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight TailwindCSS React wrapper for the default audio element.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    npm install --save tailwind-player
 
-## Expanding the ESLint configuration
+You should have the react and react-dom installed.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Usage
 
-- Configure the top-level `parserOptions` property like this:
+    import TailwindPlayer from 'tailwind-player';
+    //...
+    <TailwindPlayer
+      src="https://youtu.be/dQw4w9WgXcQ?si=Id6V7AafrYLSmgNd"
+      loop
+      autoplay
+    />
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Example
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+See the example directory for a basic working example of using this project. To run it locally, run `npm install` in the example directory and then `npm start`.
+
+## Props
+
+| Prop           | Type    | Default        |
+| -------------- | ------- | -------------- |
+| `autoPlay`     | Boolean | false          |
+| `children`     | Element | null           |
+| `className`    | String  | _empty string_ |
+| `controls`     | Boolean | false          |
+| `crossOrigin`  | String  | _empty string_ |
+| `controlsList` | String  | _empty string_ |
+| `id`           | String  | _empty string_ |
+| `loop`         | Boolean | false          |
+| `muted`        | Boolean | false          |
+| `volume`       | Number  | 1.0            |
+| `preload`      | String  | 'metadata'     |
+| `src`          | String  | _empty string_ |
+| `style`        | Object  | ---            |
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `listenInterval` | Number | Indicates how often to call the `onListened` prop during playback, in milliseconds. Default is 10000. |
+| `onAbort` | Function | called when unloading the audio player, like when switching to a different src file. Passed the event. |
+| `onCanPlay` | Function | called when enough of the file has been downloaded to be able to start playing. Passed the event. |
+| `onCanPlayThrough` | Function | called when enough of the file has been downloaded to play through the entire file. Passed the event. |
+| `onEnded` | Function | called when playback has finished to the end of the file. Passed the event. |
+| `onError` | Function | called when the audio tag encounters an error. Passed the event. |
+| `onListen` | Function | called every `listenInterval` milliseconds during playback. Passed the event. |
+| `onPause` | Function | called when the user pauses playback. Passed the event. |
+| `onPlay` | Function | called when the user taps play. Passed the event. |
+| `onSeeked` | Function | called when the user drags the time indicator to a new time. Passed the event. |
+| `onVolumeChanged` | Function | called when the user changes the volume, such as by dragging the volume slider |
+| `onLoadedMetadata` | Function | called when the metadata for the given audio file has finished downloading. Passed the event. |

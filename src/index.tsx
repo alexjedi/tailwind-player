@@ -8,12 +8,34 @@ import {
   PlusIcon,
 } from '@heroicons/react/20/solid'
 import React, { useEffect, useRef, useState } from 'react'
+import PlayerProps from './props'
+import './index.css'
 
-interface PlayerProps {
-  videoUrl: string
-}
-
-const Player: React.FC<PlayerProps> = ({ videoUrl }) => {
+const Player: React.FC<PlayerProps> = ({
+  audioUrl,
+  autoPlay,
+  className,
+  controls,
+  controlsList,
+  crossOrigin,
+  id,
+  loop,
+  muted,
+  onAbort,
+  onCanPlay,
+  onCanPlayThrough,
+  onEnded,
+  onError,
+  onLoadedMetadata,
+  onPause,
+  onPlay,
+  onSeeked,
+  onVolumeChanged,
+  preload,
+  style,
+  title,
+  volume = 1.0,
+}) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [playbackRate, setPlaybackRate] = useState(1)
   const [currentTime, setCurrentTime] = useState(0)
@@ -106,11 +128,35 @@ const Player: React.FC<PlayerProps> = ({ videoUrl }) => {
   return (
     <dialog className="w-full h-24 px-12 flex items-center justify-center bg-transparent pointer-events-none">
       <audio
-        ref={audioRef}
-        src={videoUrl}
+        src={audioUrl}
+        autoPlay={autoPlay}
+        className={className}
+        controls={controls}
+        controlsList={controlsList}
+        // crossOrigin={crossOrigin}
+        id={id}
+        loop={loop}
+        muted={muted}
         onTimeUpdate={handleTimeUpdate}
         onDurationChange={handleDurationChange}
-      />
+        // onAbort={onAbort}
+        // onCanPlay={onCanPlay}
+        // onCanPlayThrough={onCanPlayThrough}
+        // onEnded={onEnded}
+        // onError={onError}
+        // onLoadedMetadata={onLoadedMetadata}
+        // onPause={onPause}
+        // onPlay={onPlay}
+        // onSeeked={onSeeked}
+        // onVolumeChange={onVolumeChanged}
+        preload={preload}
+        style={style}
+        title={title}
+        ref={audioRef}
+        volume={volume}
+      >
+        Your browser does not support the audio element.
+      </audio>
       <div className="relative z-10 p-4 pointer-events-auto">
         <div className="flex w-[41rem] rounded-lg bg-white shadow-xl shadow-black/5 ring-1 ring-slate-700/10">
           <div className="flex items-center space-x-4 px-6 py-4">
@@ -160,7 +206,7 @@ const Player: React.FC<PlayerProps> = ({ videoUrl }) => {
               </button>
             </div>
             <a
-              href={videoUrl}
+              href={audioUrl}
               target="_blank"
               className="rounded-full flex items-center justify-center p-2"
             >
