@@ -17,7 +17,6 @@ const Player: React.FC<PlayerProps> = ({
   className,
   controls,
   controlsList,
-  crossOrigin,
   id,
   loop,
   muted,
@@ -30,18 +29,16 @@ const Player: React.FC<PlayerProps> = ({
   onPause,
   onPlay,
   onSeeked,
-  onVolumeChanged,
+  onVolumeChange,
   preload,
   style,
   title,
-  volume = 1.0,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [playbackRate, setPlaybackRate] = useState(1)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
-  const [markers, setMarkers] = useState<number[]>([])
-  const [isDragging, setIsDragging] = useState(false)
+  const [isDragging] = useState(false)
   const [sliderFraction, setSliderFraction] = useState(0)
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -90,10 +87,6 @@ const Player: React.FC<PlayerProps> = ({
     setIsPlaying(!isPlaying)
   }
 
-  const handleMarker = () => {
-    setMarkers([...markers, audioRef.current?.currentTime || 0])
-  }
-
   const formatTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600)
     const minutes = Math.floor((seconds % 3600) / 60)
@@ -133,27 +126,25 @@ const Player: React.FC<PlayerProps> = ({
         className={className}
         controls={controls}
         controlsList={controlsList}
-        // crossOrigin={crossOrigin}
         id={id}
         loop={loop}
         muted={muted}
         onTimeUpdate={handleTimeUpdate}
         onDurationChange={handleDurationChange}
-        // onAbort={onAbort}
-        // onCanPlay={onCanPlay}
-        // onCanPlayThrough={onCanPlayThrough}
-        // onEnded={onEnded}
-        // onError={onError}
-        // onLoadedMetadata={onLoadedMetadata}
-        // onPause={onPause}
-        // onPlay={onPlay}
-        // onSeeked={onSeeked}
-        // onVolumeChange={onVolumeChanged}
+        onAbort={onAbort}
+        onCanPlay={onCanPlay}
+        onCanPlayThrough={onCanPlayThrough}
+        onEnded={onEnded}
+        onError={onError}
+        onLoadedMetadata={onLoadedMetadata}
+        onPause={onPause}
+        onPlay={onPlay}
+        onSeeked={onSeeked}
+        onVolumeChange={onVolumeChange}
         preload={preload}
         style={style}
         title={title}
         ref={audioRef}
-        volume={volume}
       >
         Your browser does not support the audio element.
       </audio>
