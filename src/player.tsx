@@ -8,11 +8,34 @@ import {
   PlusIcon,
 } from '@heroicons/react/20/solid'
 import React, { useEffect, useRef, useState } from 'react'
-import PlayerProps from './props'
 import './index.css'
 
+interface PlayerProps {
+  src: string
+  autoPlay?: boolean
+  className?: string
+  controls?: boolean
+  controlsList?: string
+  id?: string
+  loop?: boolean
+  muted?: boolean
+  onAbort?: () => void
+  onCanPlay?: () => void
+  onCanPlayThrough?: () => void
+  onEnded?: () => void
+  onError?: () => void
+  onLoadedMetadata?: () => void
+  onPause?: () => void
+  onPlay?: () => void
+  onSeeked?: () => void
+  onVolumeChange?: () => void
+  preload?: '' | 'none' | 'metadata' | 'auto'
+  style?: React.CSSProperties
+  title?: string
+}
+
 const Player: React.FC<PlayerProps> = ({
-  audioUrl,
+  src,
   autoPlay,
   className,
   controls,
@@ -121,7 +144,7 @@ const Player: React.FC<PlayerProps> = ({
   return (
     <dialog className="w-full h-24 px-12 flex items-center justify-center bg-transparent pointer-events-none">
       <audio
-        src={audioUrl}
+        src={src}
         autoPlay={autoPlay}
         className={className}
         controls={controls}
@@ -197,7 +220,7 @@ const Player: React.FC<PlayerProps> = ({
               </button>
             </div>
             <a
-              href={audioUrl}
+              href={src}
               target="_blank"
               className="rounded-full flex items-center justify-center p-2"
             >

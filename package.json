@@ -1,50 +1,61 @@
 {
   "name": "tailwind-player",
   "description": "Standalone tailwind component with audio player functionality",
-  "private": true,
-  "version": "0.0.1",
-  "main": "dist/bundle.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/justinmc/react-audio-player"
-  },
+  "version": "0.0.3",
+  "author": "Alex Shevliakov <alexshelvey.com> (https://alexshelvey.com)",
+  "homepage": "https://github.com/alexjedi/tailwind-player",
+  "repository": "github:https://github.com/alexjedi/tailwind-player",
+  "license": "MIT",
   "keywords": [
     "react",
-    "audio",
+    "audio-player",
     "player",
-    "tailwind"
+    "tailwind",
+    "typescript"
   ],
-  "author": "Alex Shevliakov",
-  "license": "MIT",
-  "peerDependencies": {
-    "react": ">=17",
-    "react-dom": ">=17"
-  },
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "vite",
+    "dev": "tsc && vite build --watch",
+    "start": "vite --host --open",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "build:types": "dts-bundle-generator --config ./dts-bundle-generator.config.ts",
+    "lint:scripts": "eslint ./src --ext .ts",
+    "lint:styles": "stylelint ./**/*.{css,scss}",
+    "format:scripts": "prettier ./src --write",
+    "format:styles": "stylelint ./**/*.{css,scss} --fix"
   },
   "dependencies": {
-    "@heroicons/react": "^2.1.1",
+    "@heroicons/react": "^2.1.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.56",
-    "@types/react-dom": "^18.2.19",
-    "@typescript-eslint/eslint-plugin": "^7.0.2",
-    "@typescript-eslint/parser": "^7.0.2",
+    "@types/node": "^20.11.24",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
+    "dts-bundle-generator": "^9.3.1",
     "eslint": "^8.57.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
     "postcss": "^8.4.38",
+    "prettier": "^3.2.5",
+    "stylelint": "^16.2.1",
+    "stylelint-config-recommended": "^14.0.0",
+    "stylelint-config-sass-guidelines": "^11.0.0",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.3",
-    "typescript-eslint": "^7.5.0",
-    "vite": "^5.1.4"
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.4",
+    "vite-plugin-dts": "^3.7.3"
   }
 }
