@@ -1,7 +1,7 @@
 {
   "name": "tailwind-player",
   "description": "Standalone tailwind component with audio player functionality",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "author": "Alex Shevliakov <alexshelvey.com> (https://alexshelvey.com)",
   "homepage": "https://github.com/alexjedi/tailwind-player",
   "repository": "github:https://github.com/alexjedi/tailwind-player",

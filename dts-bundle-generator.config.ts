@@ -1,11 +1,11 @@
 const config = {
   entries: [
     {
-      filePath: "./src/index.ts",
-      outFile: "./dist/index.d.ts",
+      filePath: './src/prop.d.ts',
+      outFile: './dist/index.d.ts',
       noCheck: false,
     },
   ],
-};
+}
 
-module.exports = config;
+module.exports = config
