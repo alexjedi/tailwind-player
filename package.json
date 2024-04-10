@@ -1,7 +1,7 @@
 {
   "name": "tailwind-player",
   "description": "Standalone tailwind component with audio player functionality",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "author": "Alex Shevliakov <alexshelvey.com> (https://alexshelvey.com)",
   "homepage": "https://github.com/alexjedi/tailwind-player",
   "repository": "github:https://github.com/alexjedi/tailwind-player",
@@ -33,7 +33,8 @@
   "dependencies": {
     "@heroicons/react": "^2.1.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tailwind-player": "^0.0.8"
   },
   "devDependencies": {
     "@types/node": "^20.11.24",
