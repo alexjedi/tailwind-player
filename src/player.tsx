@@ -6,6 +6,8 @@ import {
   PauseIcon,
   PlayIcon,
   PlusIcon,
+  SpeakerWaveIcon,
+  SpeakerXMarkIcon,
 } from '@heroicons/react/20/solid'
 import React, { useEffect, useRef, useState } from 'react'
 import './index.css'
@@ -35,6 +37,7 @@ const Player: React.FC<PlayerProps> = ({
   title,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isMuted, setIsMuted] = useState(muted || false)
   const [playbackRate, setPlaybackRate] = useState(1)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -118,8 +121,18 @@ const Player: React.FC<PlayerProps> = ({
     }
   }
 
+  const handlePlaybackSpeedChange = () => {
+    if (playbackRate === 1) {
+      setPlaybackRate(1.5)
+    } else if (playbackRate === 1.5) {
+      setPlaybackRate(2)
+    } else {
+      setPlaybackRate(1)
+    }
+  }
+
   return (
-    <dialog className="w-full h-24 px-12 flex items-center justify-center bg-transparent pointer-events-none">
+    <dialog className="w-full h-24 px-12 flex items-center justify-center bg-transparent pointer-events-none tailwind-player">
       <audio
         src={src}
         autoPlay={autoPlay}
@@ -128,7 +141,7 @@ const Player: React.FC<PlayerProps> = ({
         controlsList={controlsList}
         id={id}
         loop={loop}
-        muted={muted}
+        muted={isMuted}
         onTimeUpdate={handleTimeUpdate}
         onDurationChange={handleDurationChange}
         onAbort={onAbort}
@@ -151,7 +164,7 @@ const Player: React.FC<PlayerProps> = ({
       <div className="relative z-10 p-4 pointer-events-auto">
         <div className="flex w-[41rem] rounded-lg bg-white shadow-xl shadow-black/5 ring-1 ring-slate-700/10">
           <div className="flex items-center space-x-4 px-6 py-4">
-            <button className="rounded-full flex items-center justify-center p-2">
+            <button className="rounded-lg flex items-center justify-center py-2 px-2 bg-transparent hover:bg-gray-100 transition-all duration-300 ease-in-out">
               <ArrowUturnLeftIcon className="w-5 h-5 text-gray-600" />
             </button>
             <button
@@ -164,15 +177,15 @@ const Player: React.FC<PlayerProps> = ({
                 <PlayIcon className="w-5 h-5 text-white" />
               )}
             </button>
-            <button className="rounded-full flex items-center justify-center p-2">
+            <button className="rounded-lg flex items-center justify-center py-2 px-2 bg-transparent hover:bg-gray-100 transition-all duration-300 ease-in-out">
               <ArrowUturnRightIcon className="w-5 h-5 text-gray-600" />
             </button>
           </div>
-          <div className="flex flex-auto items-center border-l border-slate-200/60 pl-6 pr-4 text-[0.8125rem] leading-5 text-slate-700">
-            <div>{formatTime(currentTime)}</div>
+          <div className="flex space-x-4 flex-auto items-center border-l border-slate-200/60 pl-6 pr-4 text-[0.8125rem] leading-5 text-slate-700">
+            <div className="w-9">{formatTime(currentTime)}</div>
             <div
               ref={sliderRef}
-              className="relative ml-4 flex flex-auto rounded-full bg-slate-100 cursor-pointer"
+              className="relative flex flex-auto rounded-full bg-slate-100 cursor-pointer"
               onMouseDown={handleSliderMouseDown}
             >
               <div
@@ -181,28 +194,34 @@ const Player: React.FC<PlayerProps> = ({
               />
               <div className="-my-[0.3125rem] ml-0.5 h-[1.125rem] w-1 rounded-full bg-indigo-600"></div>
             </div>
-            <div className="ml-4">{formatTime(duration)}</div>
-            <div className="ml-4 flex items-center">
+            <div className="w-9">{formatTime(duration)}</div>
+            <div className="flex items-center">
               <button
-                onClick={() => setPlaybackRate(playbackRate / 1.25)}
-                className="rounded-full flex items-center justify-center py-2 px-1"
+                onClick={handlePlaybackSpeedChange}
+                className="rounded-lg w-10 font-medium flex items-center justify-center py-2 px-2 bg-transparent hover:bg-gray-100 transition-all duration-300 ease-in-out"
               >
-                <MinusIcon className="w-5 h-5 text-gray-600" />
+                {playbackRate === 1 ? '1.0x' : playbackRate === 1.5 ? '1.5x' : '2.0x'}
               </button>
-              <button
-                onClick={() => setPlaybackRate(playbackRate * 1.25)}
-                className="rounded-full flex items-center justify-center py-2 px-1"
+              <div className="flex items-center">
+                <button
+                  onClick={() => setIsMuted(!isMuted)}
+                  className="rounded-lg flex items-center justify-center py-2 px-2 bg-transparent hover:bg-gray-100 transition-all duration-300 ease-in-out"
+                >
+                  {isMuted ? (
+                    <SpeakerXMarkIcon className="w-5 h-5 text-gray-600" />
+                  ) : (
+                    <SpeakerWaveIcon className="w-5 h-5 text-gray-600" />
+                  )}
+                </button>
+              </div>
+              <a
+                href={src}
+                target="_blank"
+                className="rounded-lg flex items-center justify-center py-2 px-2 bg-transparent hover:bg-gray-100 transition-all duration-300 ease-in-out"
               >
-                <PlusIcon className="w-5 h-5 text-gray-600" />
-              </button>
+                <ArrowDownTrayIcon className="w-5 h-5 text-gray-600" />
+              </a>
             </div>
-            <a
-              href={src}
-              target="_blank"
-              className="rounded-full flex items-center justify-center p-2"
-            >
-              <ArrowDownTrayIcon className="w-5 h-5 text-gray-600" />
-            </a>
           </div>
         </div>
       </div>
