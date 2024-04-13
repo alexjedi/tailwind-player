@@ -20,4 +20,12 @@ export interface PlayerProps {
   preload?: '' | 'none' | 'metadata' | 'auto'
   style?: React.CSSProperties
   title?: string
+  preset?: {
+    showSlider: boolean
+    showFastForward: boolean
+    showPlaybackSpeed: boolean
+    showMute: boolean
+    showDownload: boolean
+    showPlaylist: boolean
+  }
 }

@@ -35,6 +35,14 @@ const Player: React.FC<PlayerProps> = ({
   preload,
   style,
   title,
+  preset = {
+    showSlider: true,
+    showFastForward: true,
+    showPlaybackSpeed: true,
+    showMute: true,
+    showDownload: true,
+    showPlaylist: true,
+  },
 }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(muted || false)
@@ -164,9 +172,11 @@ const Player: React.FC<PlayerProps> = ({
       <div className="relative z-10 p-4 pointer-events-auto">
         <div className="flex w-[41rem] rounded-lg bg-white shadow-xl shadow-black/5 ring-1 ring-slate-700/10">
           <div className="flex items-center space-x-4 px-6 py-4">
-            <button className="rounded-lg flex items-center justify-center py-2 px-2 bg-transparent hover:bg-gray-100 transition-all duration-300 ease-in-out">
-              <ArrowUturnLeftIcon className="w-5 h-5 text-gray-600" />
-            </button>
+            {preset.showFastForward && (
+              <button className="rounded-lg flex items-center justify-center py-2 px-2 bg-transparent hover:bg-gray-100 transition-all duration-300 ease-in-out">
+                <ArrowUturnLeftIcon className="w-5 h-5 text-gray-600" />
+              </button>
+            )}
             <button
               onClick={handlePlayPause}
               className="bg-[#0F172A] rounded-full flex items-center justify-center p-2"
@@ -177,31 +187,41 @@ const Player: React.FC<PlayerProps> = ({
                 <PlayIcon className="w-5 h-5 text-white" />
               )}
             </button>
-            <button className="rounded-lg flex items-center justify-center py-2 px-2 bg-transparent hover:bg-gray-100 transition-all duration-300 ease-in-out">
-              <ArrowUturnRightIcon className="w-5 h-5 text-gray-600" />
-            </button>
+            {preset.showFastForward && (
+              <button className="rounded-lg flex items-center justify-center py-2 px-2 bg-transparent hover:bg-gray-100 transition-all duration-300 ease-in-out">
+                <ArrowUturnRightIcon className="w-5 h-5 text-gray-600" />
+              </button>
+            )}
           </div>
           <div className="flex space-x-4 flex-auto items-center border-l border-slate-200/60 pl-6 pr-4 text-[0.8125rem] leading-5 text-slate-700">
-            <div className="w-9">{formatTime(currentTime)}</div>
-            <div
-              ref={sliderRef}
-              className="relative flex flex-auto rounded-full bg-slate-100 cursor-pointer"
-              onMouseDown={handleSliderMouseDown}
-            >
-              <div
-                style={{ width: `${sliderFraction * 100}%` }}
-                className="h-2 flex-none rounded-l-full rounded-r-[1px] bg-indigo-600 transition-all duration-500 ease-in-out"
-              />
-              <div className="-my-[0.3125rem] ml-0.5 h-[1.125rem] w-1 rounded-full bg-indigo-600"></div>
-            </div>
-            <div className="w-9">{formatTime(duration)}</div>
-            <div className="flex items-center">
-              <button
-                onClick={handlePlaybackSpeedChange}
-                className="rounded-lg w-10 font-medium flex items-center justify-center py-2 px-2 bg-transparent hover:bg-gray-100 transition-all duration-300 ease-in-out"
-              >
-                {playbackRate === 1 ? '1.0x' : playbackRate === 1.5 ? '1.5x' : '2.0x'}
-              </button>
+            {preset.showSlider && (
+              <>
+                <div className="w-9">{formatTime(currentTime)}</div>
+                <div
+                  ref={sliderRef}
+                  className="relative flex flex-auto rounded-full bg-slate-100 cursor-pointer"
+                  onMouseDown={handleSliderMouseDown}
+                >
+                  <div
+                    style={{ width: `${sliderFraction * 100}%` }}
+                    className="h-2 flex-none rounded-l-full rounded-r-[1px] bg-indigo-600 transition-all duration-500 ease-in-out"
+                  />
+                  <div className="-my-[0.3125rem] ml-0.5 h-[1.125rem] w-1 rounded-full bg-indigo-600"></div>
+                </div>
+                <div className="w-9">{formatTime(duration)}</div>
+              </>
+            )}
+            {preset.showPlaybackSpeed && (
+              <div className="flex items-center">
+                <button
+                  onClick={handlePlaybackSpeedChange}
+                  className="rounded-lg w-10 font-medium flex items-center justify-center py-2 px-2 bg-transparent hover:bg-gray-100 transition-all duration-300 ease-in-out"
+                >
+                  {playbackRate === 1 ? '1.0x' : playbackRate === 1.5 ? '1.5x' : '2.0x'}
+                </button>
+              </div>
+            )}
+            {preset.showMute && (
               <div className="flex items-center">
                 <button
                   onClick={() => setIsMuted(!isMuted)}
@@ -214,6 +234,8 @@ const Player: React.FC<PlayerProps> = ({
                   )}
                 </button>
               </div>
+            )}
+            {preset.showDownload && (
               <a
                 href={src}
                 target="_blank"
@@ -221,17 +243,10 @@ const Player: React.FC<PlayerProps> = ({
               >
                 <ArrowDownTrayIcon className="w-5 h-5 text-gray-600" />
               </a>
-            </div>
+            )}
           </div>
         </div>
       </div>
-
-      {/* <button onClick={handleMarker}>Mark speaker position</button>
-      {markers.map((marker, index) => (
-        <p key={index}>
-          Speaker at: {new Date(marker * 1000).toISOString().substr(11, 8)}
-        </p>
-      ))} */}
     </dialog>
   )
 }

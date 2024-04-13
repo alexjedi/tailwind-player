@@ -42,6 +42,16 @@ See the example directory for a basic working example of using this project. To 
 
 | Prop | Type | Description |
 | --- | --- | --- |
+| `preset` | Object | Additional properties for the preset |
+| `preset.showSlider` | Boolean | Determines whether to show the slider. Default is true. |
+| `preset.showFastForward` | Boolean | Determines whether to show the fast forward button. Default is true. |
+| `preset.showPlaybackSpeed` | Boolean | Determines whether to show the playback speed control. Default is true. |
+| `preset.showMute` | Boolean | Determines whether to show the mute button. Default is true. |
+| `preset.showDownload` | Boolean | Determines whether to show the download button. Default is true. |
+| `preset.showPlaylist` | Boolean | Determines whether to show the playlist button. Default is true. |
+
+| Prop | Type | Description |
+| --- | --- | --- |
 | `listenInterval` | Number | Indicates how often to call the `onListened` prop during playback, in milliseconds. Default is 10000. |
 | `onAbort` | Function | called when unloading the audio player, like when switching to a different src file. Passed the event. |
 | `onCanPlay` | Function | called when enough of the file has been downloaded to be able to start playing. Passed the event. |
